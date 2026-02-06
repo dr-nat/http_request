@@ -15,9 +15,6 @@ fn get_url() -> Result<(), Box<dyn Error>> {
 
 }
 
-
-
-
 fn main() {
     let result = get_url();
 
