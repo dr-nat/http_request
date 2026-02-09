@@ -11,7 +11,7 @@ pub fn parse_args(input: &str) -> Result<Url, Box<dyn Error>> {
 
     let _path = &url.path();
 
-    let _port = &url.port();
+    let _port = &url.port_or_known_default();
 
     Ok(url)
 }
@@ -38,8 +38,6 @@ mod tests {
         let url = result.unwrap();
 
         assert_eq!(url.host_str(), Some("arstechnica.com"));
-        //assert_eq!(url.path(), "https://gemini.google.com/app/10cca38cc51cc01f")
+        assert_eq!(url.port_or_known_default(), Some(443))
     }
-
 }
-
