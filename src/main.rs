@@ -4,7 +4,7 @@ fn main() {
     let result = get_url();
 
     match result {
-        Ok(value) => value, 
+        Ok(_) => {}, 
         Err(e) => {
             eprintln!("Error: {}", e);
             std::process::exit(1);
