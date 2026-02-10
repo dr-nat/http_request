@@ -1,3 +1,4 @@
+use http_request::request::send_request;
 use http_request::cli_args::get_url;
 
 fn main() {
@@ -10,5 +11,7 @@ fn main() {
             std::process::exit(1);
         }
     }
+
+    let _ = send_request();
 
 }
