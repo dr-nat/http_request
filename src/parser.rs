@@ -7,7 +7,7 @@ pub fn parse_args(input: &str) -> Result<Url, Box<dyn Error>> {
 
     let url = Url::parse(input)?;
     
-    let _host = &url.host();
+    let _host = &url.host_str();
 
     let _path = &url.path();
 
