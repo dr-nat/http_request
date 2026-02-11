@@ -6,6 +6,7 @@ pub fn parse_args(input: &str) -> Result<Url, Box<dyn Error>> {
 
 
     let url = Url::parse(input)?;
+    println!("{}", url);
     
     let _host = &url.host_str();
 
