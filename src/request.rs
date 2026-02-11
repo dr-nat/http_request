@@ -6,10 +6,18 @@ use std::io::prelude::*;
 pub fn send_request() -> Result<(), Box<dyn Error>>{
     let argument = parser::run_args()?; 
 
-    let request = format!("GET {:?} HTTP/1.1\r\nHost: {}\r\n port: {:?}\r\nConnection: close\r\n\r\n", argument.host_str(), argument.path(), argument.port_or_known_default());
-    println!("{}", &request);
+    let host = argument.host_str().ok_or("No host found")?;
+
+    let port = argument.port_or_known_default().ok_or("Invalid port")?;
+
+    let path = argument.path();
     
-    let  stream = TcpStream::connect(&request);
+    let address = format!("{}:{}", host, port);
+
+    let request = format!("GET {} HTTP/1.1\r\nHost: {}\r\nConnection: close\r\n\r\n", path, host);
+   
+    println!("\nConnecting to address: |{}|", address);
+    let  stream = TcpStream::connect(&address);
     
     let mut streamed_value = stream?;
 
@@ -19,7 +27,7 @@ pub fn send_request() -> Result<(), Box<dyn Error>>{
 
    streamed_value.read_to_string(&mut response)?;
 
-   println!("The server returns: {:?}", response);
+   println!("The server returns: \n\n{:?}", response);
     
     Ok(())
 }
