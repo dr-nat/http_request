@@ -4,7 +4,8 @@ use std::error::Error;
 use std::io::prelude::*;
 
 pub fn send_request() -> Result<(), Box<dyn Error>>{
-    // Called the parser::run_args function to accept the commandling args and convert it to a URL let argument = parser::run_args()?; 
+
+    let argument = parser::run_args()?;
 
     let host = argument.host_str().ok_or("No host found")?;
 
