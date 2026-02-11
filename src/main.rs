@@ -12,6 +12,13 @@ fn main() {
         }
     }
 
-    let _ = send_request();
-
+    let response = send_request();
+    
+    match response {
+        Ok(_) => {},
+        Err(err) => {
+            eprintln!("Error: {}", err);
+            std::process::exit(2);
+        }
+    }
 }
