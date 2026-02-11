@@ -101,8 +101,17 @@ pub fn send_request() -> Result<(), Box<dyn Error>>{
            tls_stream.read_to_end(&mut response_bytes)?;
        }
        let response = String::from_utf8_lossy(&response_bytes).to_string();
-       println!("The server reeturns: \n\n{:?}", response);
             
+       if let Some((headers, body)) = response.split_once("\r\n\r\n") {
+            println!("\n --- HEADERS ---");
+            println!("\n {:?}", headers);
+
+            println!("\n --- BODY --- ");
+            println!("\n {:?}", body);
+       } else {
+            println!("The server reeturns: \n\n{:?}", response);
+    
+       }
    }
     Ok(())
 }
