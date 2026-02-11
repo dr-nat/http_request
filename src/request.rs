@@ -108,6 +108,18 @@ pub fn send_request() -> Result<(), Box<dyn Error>>{
 
             println!("\n --- BODY --- ");
             println!("\n {:?}", body);
+
+            if let Some(status_code) = headers.lines().next() {
+                let pattern: Vec<&str> = status_code.split_whitespace().collect();
+
+                if let Some(code) = pattern.get(1) {
+                    match *code {
+                        "200" => println!("\n\x1b[32m Status: Successful ({})\x1b[0m", code),
+                        "400" => println!("\n\x1b[31m Status: Not found {}\x1b[0m", code),
+                        _ => println!("Status code: {}", code)
+                    }
+                }
+            }
        } else {
             println!("The server reeturns: \n\n{:?}", response);
     
