@@ -34,7 +34,16 @@ pub fn send_request() -> Result<(), Box<dyn Error>>{
 
    streamed_value.read_to_string(&mut response)?;
 
+   if let Some((headers, body)) = response.split_once("\r\n\r\n") {
+        println!(" --- HEADERS --- ");
+        println!("{}", headers);
+
+        println!("\n--- BODY ---");
+        println!("{}", body);
+   } else {
+   
    println!("The server returns: \n\n{:?}", response);
-    
+   
+   }
     Ok(())
 }
